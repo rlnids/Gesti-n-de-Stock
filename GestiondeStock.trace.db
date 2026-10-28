@@ -8,3 +8,135 @@ CREATE TABLE IF NOT EXISTS provedor (
     telefono INT (12)
 )
  [42001-252]
+2026-10-28 20:08:30.035275+01:00 database: flush
+org.h2.message.DbException: Error General : "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]" [50000-252]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.message.DbException.convert(DbException.java:407)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:123)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:1693)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:521)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:298)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2193)
+	at org.h2.mvstore.db.Store.<init>(Store.java:140)
+	at org.h2.engine.Database.<init>(Database.java:328)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:350)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
+	at BorrarTabla.main(BorrarTabla.java:11)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Error General : "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]" [50000-252]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 18 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:998)
+	at org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:293)
+	... 12 more
+2026-10-28 20:15:24.093013+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROVEEDOR" no encontrada
+Table "PROVEEDOR" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS productos (
+    producto_id       INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_producto   VARCHAR(100) NOT NULL,
+    proveedor_id      INT NOT NULL,
+    cantidad_producto INT NOT NULL,
+    precio_pvp        DOUBLE NOT NULL,
+    precio_compra     DOUBLE NOT NULL,
+    CONSTRAINT fk_productos_proveedor
+        FOREIGN KEY (proveedor_id)
+        REFERENCES proveedor(proveedor_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) [42102-252]
+2026-10-28 20:15:51.485646+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "PROVEEDOR" no encontrada
+Table "PROVEEDOR" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS productos (
+    producto_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_producto VARCHAR (100) NOT NULL ,
+    nombre_proveedor VARCHAR (50) NOT NULL ,
+    cantidad_producto INT NOT NULL,
+    precio_pvp DOUBLE NOT NULL,
+    precio_compra DOUBLE NOT NULL,
+    CONSTRAINT fk_productos_proveedor
+    FOREIGN KEY (proveedor_id)
+    REFERENCES proveedor(producto_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) [42102-252]
+2026-10-28 20:16:16.863012+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Columna "PROVEEDOR_ID" no encontrada
+Column "PROVEEDOR_ID" not found; SQL statement:
+CREATE TABLE IF NOT EXISTS productos (
+    producto_id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre_producto VARCHAR (100) NOT NULL ,
+    nombre_proveedor VARCHAR (50) NOT NULL ,
+    cantidad_producto INT NOT NULL,
+    precio_pvp DOUBLE NOT NULL,
+    precio_compra DOUBLE NOT NULL,
+    CONSTRAINT fk_productos_proveedor
+    FOREIGN KEY (proveedor_id)
+    REFERENCES proveedor(producto_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) [42122-252]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	at org.h2.message.DbException.get(DbException.java:223)
+	at org.h2.message.DbException.get(DbException.java:199)
+	at org.h2.table.Table.getColumn(Table.java:777)
+	at org.h2.table.IndexColumn.mapColumns(IndexColumn.java:184)
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:223)
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:77)
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46)
+	at org.h2.command.ddl.CommandWithColumns.createConstraints(CommandWithColumns.java:83)
+	at org.h2.command.ddl.CreateTable.update(CreateTable.java:134)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:139)
+	at org.h2.command.Command.executeUpdate(Command.java:307)
+	at org.h2.command.Command.executeUpdate(Command.java:251)
+	at org.h2.jdbc.JdbcStatement.executeUpdateInternal(JdbcStatement.java:196)
+	at org.h2.jdbc.JdbcStatement.executeUpdate(JdbcStatement.java:147)
+	at Producto.main(Producto.java:30)
+2026-10-28 20:53:27.975630+01:00 database: flush
+org.h2.message.DbException: Error General : "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]" [50000-252]
+	at org.h2.message.DbException.get(DbException.java:212)
+	at org.h2.message.DbException.convert(DbException.java:407)
+	at org.h2.mvstore.db.Store.lambda$new$0(Store.java:123)
+	at org.h2.mvstore.MVStore.handleException(MVStore.java:1693)
+	at org.h2.mvstore.MVStore.panic(MVStore.java:521)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:298)
+	at org.h2.mvstore.MVStore$Builder.open(MVStore.java:2193)
+	at org.h2.mvstore.db.Store.<init>(Store.java:140)
+	at org.h2.engine.Database.<init>(Database.java:328)
+	at org.h2.engine.Engine.openSession(Engine.java:92)
+	at org.h2.engine.Engine.openSession(Engine.java:222)
+	at org.h2.engine.Engine.createSession(Engine.java:201)
+	at org.h2.engine.SessionRemote.connectEmbeddedOrServer(SessionRemote.java:350)
+	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:124)
+	at org.h2.Driver.connect(Driver.java:59)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:613)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:199)
+	at Conexion.abrir(Conexion.java:13)
+	at BorrarTabla.main(BorrarTabla.java:8)
+Caused by: org.h2.jdbc.JdbcSQLNonTransientException: Error General : "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]"
+General error: "org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]" [50000-252]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:566)
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
+	... 19 more
+Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/paula/OneDrive/Documentos/curso_java/curso_bd/GestiondeStock/GestiondeStock.mv.db [2.5.252/7]
+	at org.h2.mvstore.DataUtils.newMVStoreException(DataUtils.java:998)
+	at org.h2.mvstore.SingleFileStore.lockFileChannel(SingleFileStore.java:143)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:117)
+	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
+	at org.h2.mvstore.MVStore.<init>(MVStore.java:293)
+	... 13 more
