@@ -45,7 +45,7 @@ public class Menu {
 
         Integer proveedorId = obtenerProveedorId(con, nombreProveedor);
 
-        // Si el proveedor no existe, ofrecer crearlo en el momento.
+        // Si el proveedor no existe, ofrece crearlo en el momento, creada con deepsek
         if (proveedorId == null) {
             System.out.print("⚠ El proveedor '" + nombreProveedor +
                     "' no existe. ¿Crearlo ahora? (s/n): ");
@@ -86,7 +86,7 @@ public class Menu {
             System.out.println("Error al insertar producto: " + e.getMessage());
         }
     }
-
+    //join para ver los productos junto con su proveedor
     private static void listarProducto(Connection con) {
         String sql = """
                 SELECT p.producto_id, p.nombre_producto, pr.nombre_proveedor,
@@ -139,10 +139,7 @@ public class Menu {
         }
     }
 
-    /**
-     * Pide correo y teléfono para el proveedor dado y lo inserta.
-     * Devuelve el id generado, o null si la inserción falla.
-     */
+
     private static Integer pedirYCrearProveedor(Connection con, String nombreProveedor) {
         System.out.print("Inserte el correo: ");
         String correo = SC.nextLine().trim();
@@ -172,7 +169,8 @@ public class Menu {
     }
 
     // ---------- UTILIDADES ----------
-    /** Devuelve el proveedor_id a partir del nombre, o null si no existe. */
+    // Devuelve el proveedor_id a partir del nombre, o null si no existe.
+    // Un null indica que el llamador debe ofrecer crear el proveedor
     private static Integer obtenerProveedorId(Connection con, String nombreProveedor) {
         String sql = "SELECT proveedor_id FROM proveedor WHERE nombre_proveedor = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
